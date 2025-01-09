@@ -27,10 +27,25 @@ class BarangResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('nama_barang'),
-                TextInput::make('kode_barang'),
-                TextInput::make('harga_barang'),
-                FileUpload::make('gambar_barang'),
+                TextInput::make('nama_barang')
+                ->required()
+                ->placeholder('Masukkan Nama Barang'),
+
+                TextInput::make('kode_barang')
+                ->required()
+                ->placeholder('Masukan Kode Barang'),
+
+                TextInput::make('harga_barang')
+                ->required()
+                ->placeholder('Masukan Harga Barang'),
+
+                TextInput::make('stock_barang')
+                ->required()
+                ->placeholder('Masukan Stock Barang'),
+
+                FileUpload::make('gambar_barang')
+                ->required()
+                ->placeholder('Masukan Gambar Barang'),
             ]);
     }
 
@@ -38,9 +53,11 @@ class BarangResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('nama_barang'),
+                TextColumn::make('nama_barang')
+                ->searchable(),
                 TextColumn::make('kode_barang'),
                 TextColumn::make('harga_barang'),
+                TextColumn::make('stock_barang'),
                 ImageColumn::make('gambar_barang'),
             ])
             ->filters([
