@@ -16,11 +16,11 @@ class DetailFakturModel extends Model
 
     public function barang()
     {
-        return $this->BelongsTo(Barang::class);
+        return $this->belongsTo(Barang::class);
     }
 
     public function faktur()
     {
-        return $this->belongsTo(FakturModel::class, 'id');
+        return $this->belongsTo(FakturModel::class, 'faktur_id');
     }
 }
