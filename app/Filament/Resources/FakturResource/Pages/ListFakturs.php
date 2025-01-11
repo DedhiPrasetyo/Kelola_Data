@@ -6,7 +6,7 @@ use App\Filament\Resources\FakturResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListFakturs extends ListRecords
+class ListFaktur extends ListRecords
 {
     protected static string $resource = FakturResource::class;
 

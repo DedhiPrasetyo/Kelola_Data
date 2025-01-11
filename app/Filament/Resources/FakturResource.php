@@ -258,7 +258,7 @@ class FakturResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListFakturs::route('/'),
+            'index' => Pages\ListFaktur::route('/'),
             'create' => Pages\CreateFaktur::route('/create'),
             'edit' => Pages\EditFaktur::route('/{record}/edit'),
         ];

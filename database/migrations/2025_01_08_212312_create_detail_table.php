@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('detail', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('faktur_id')->constrained()->onDelete('cascade');
-            $table->foreignId('barang_id')->constrained()->onDelete('cascade');
+            $table->foreignId('faktur_id')->constrained('faktur')->onDelete('cascade');
+            $table->foreignId('barang_id')->constrained('barangs')->onDelete('cascade');
             $table->string('nama_barang');
             $table->decimal('harga', 10, 2)->default(0);
             $table->integer('qty');
+            $table->integer('hasil_qty');
             $table->decimal('diskon', 10, 2)->nullable();
             $table->decimal('subtotal', 10, 2)->nullable();
             $table->timestamps();

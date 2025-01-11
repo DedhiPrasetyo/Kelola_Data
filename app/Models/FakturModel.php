@@ -11,9 +11,19 @@ class FakturModel extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $guarded = [];
-
     protected $table = 'faktur';
+
+    protected $fillable = [
+        'kode_faktur',
+        'tanggal_faktur',
+        'customer_id',
+        'kode_customer',
+        'ket_faktur',
+        'total',
+        'nominal_charge',
+        'charge',
+        'total_final',
+    ];
 
     public function customer()
     {
@@ -22,6 +32,11 @@ class FakturModel extends Model
 
     public function detail()
     {
-        return $this->hasMany(DetailFakturModel::class,'faktur_id');
+        return $this->hasMany(DetailFakturModel::class, 'faktur_id');
+    }
+
+    public function penjualan()
+    {
+        return $this->hasMany(PenjualanModel::class, 'faktur_id');
     }
 }
