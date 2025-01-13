@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class PenjualanModel extends Model
 {
@@ -32,4 +34,9 @@ class PenjualanModel extends Model
     {
         return $this->belongsTo(FakturModel::class, 'id');
     }
+
+    public function country():BelongsTo{
+        return $this->belongsTo(related:State::class);
+    }
+
 }

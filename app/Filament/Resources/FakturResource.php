@@ -28,6 +28,7 @@ use Filament\Forms\Set;
 class FakturResource extends Resource
 {
     protected static ?string $model = FakturModel::class;
+    protected static ?string $navigationGroup = 'Faktur';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -227,7 +228,8 @@ class FakturResource extends Resource
                 TextColumn::make('kode_customer'),
                 TextColumn::make('customer.nama_customer')->label('Nama Customer'),
                 TextColumn::make('ket_faktur'),
-                TextColumn::make('total'),
+                TextColumn::make('total')
+                -> formatStateUsing(fn(FakturModel $record): string =>'Rp'.number_format($record->total, 2, ',', '.')),
                 TextColumn::make('nominal_charge'),
                 TextColumn::make('charge'),
                 TextColumn::make('total_final'),
