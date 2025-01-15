@@ -11,10 +11,14 @@ use Filament\Forms; // Mengimpor komponen Forms dari Filament
 use Filament\Forms\Form; // Mengimpor kelas Form dari Filament
 use Filament\Resources\Resource; // Mengimpor kelas Resource dari Filament
 use Filament\Tables; // Mengimpor komponen Tables dari Filament
+use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ExportBulkAction as ActionsExportBulkAction;
+use Filament\Tables\Actions\HeaderActionsPosition;
 use Filament\Tables\Columns\TextColumn; // Mengimpor kelas TextColumn dari Tables
 use Filament\Tables\Table; // Mengimpor kelas Table dari Tables
 use Illuminate\Database\Eloquent\Builder; // Mengimpor kelas Builder dari Eloquent
 use Illuminate\Database\Eloquent\SoftDeletingScope; // Mengimpor SoftDeletingScope dari Eloquent
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class PenjualanResource extends Resource // Mendeklarasikan kelas PenjualanResource yang merupakan turunan dari Resource
 {
@@ -73,20 +77,15 @@ class PenjualanResource extends Resource // Mendeklarasikan kelas PenjualanResou
                     ->searchable(), // Mengizinkan pencarian
              ])
 
-
-            ->emptyStateHeading('Tidak ada Data Laporan') // Menambahkan heading jika tidak ada data
-            ->filters([ // Menentukan filter
-                Tables\Filters\TrashedFilter::make(), // Menambahkan filter untuk data yang dihapus
-
-
-            ])
-
+             ->emptyStateHeading('Tidak ada Data Laporan')
+             ->emptyStateDescription('Tidak ada data yang tersedia. Silakan tambahkan data baru.')
+             ->filters([
+                 Tables\Filters\TrashedFilter::make(),
+             ])
 
             ->actions([ // Menentukan aksi yang dapat dilakukan
                 Tables\Actions\EditAction::make(), // Menambahkan aksi edit
                 Tables\Actions\DeleteAction::make(), // Menambahkan aksi hapus
-                // Kode ini tidak dapat digunakan karena kelas ExporterAction dan ProductExporter tidak terdefinisi
-                // Pastikan untuk mengimpor kelas yang diperlukan atau mendefinisikannya sebelum digunakan
             ])
            
             ->bulkActions([ // Menentukan aksi bulk
@@ -94,9 +93,10 @@ class PenjualanResource extends Resource // Mendeklarasikan kelas PenjualanResou
                     Tables\Actions\DeleteBulkAction::make(), // Menambahkan aksi hapus bulk
                     Tables\Actions\ForceDeleteBulkAction::make(), // Menambahkan aksi hapus paksa bulk
                     Tables\Actions\RestoreBulkAction::make(), // Menambahkan aksi pulihkan bulk
+                    ExportBulkAction::make('export'),
                 ]),
+                
             ]);
-
     }
 
     public static function getRelations(): array // Mendefinisikan metode untuk mendapatkan relasi
